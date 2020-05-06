@@ -5,11 +5,9 @@ import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "people")
 public class Person {

@@ -13,11 +13,11 @@ import java.util.Collections;
 import java.util.List;
 
 @Component
-public class DiagnosisJdbcDAO implements DiagnosisDAO {
+public class DiagnosisImplDAO implements DiagnosisDAO {
 
     private final DiagnosisRepository diagnosisRepository;
 
-    public DiagnosisJdbcDAO(final DiagnosisRepository diagnosisRepository) {
+    public DiagnosisImplDAO(final DiagnosisRepository diagnosisRepository) {
         this.diagnosisRepository = diagnosisRepository;
     }
 

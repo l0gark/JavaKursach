@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/diagnosis")
+@RequestMapping("diagnosis")
 @RestController
 public class DiagnosisController {
 
@@ -32,7 +32,7 @@ public class DiagnosisController {
         }
     }
 
-    @GetMapping("/all")
+    @GetMapping("all")
     public ResponseEntity<List<Diagnosis>> getDiagnoses() {
         return ResponseEntity.ok(diagnosisDAO.getAllDiagnosis());
     }

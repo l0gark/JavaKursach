@@ -12,13 +12,13 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class PersonJdbcDAO implements PersonDAO {
+public class PersonImplDAO implements PersonDAO {
 
     private final PersonRepository personRepository;
     private final WardDAO wardDAO;
     private final DiagnosisDAO diagnosisDAO;
 
-    public PersonJdbcDAO(final PersonRepository personRepository, WardDAO wardDAO, DiagnosisDAO diagnosisDAO) {
+    public PersonImplDAO(final PersonRepository personRepository, WardDAO wardDAO, DiagnosisDAO diagnosisDAO) {
         this.personRepository = personRepository;
         this.wardDAO = wardDAO;
         this.diagnosisDAO = diagnosisDAO;
@@ -44,13 +44,13 @@ public class PersonJdbcDAO implements PersonDAO {
         final Ward ward = wardDAO.getWardById(dto.getWardId());
         final Diagnosis diagnosis = diagnosisDAO.getDiagnosisById(dto.getDiagnosisId());
 
-        return Person.builder()
-                .firstName(dto.getFirstName())
-                .lastName(dto.getLastName())
-                .fatherName(dto.getFatherName())
-                .ward(ward)
-                .diagnosis(diagnosis)
-                .id(1L)
-                .build();
+        return new Person(
+                -1L,
+                dto.getFirstName(),
+                dto.getLastName(),
+                dto.getFatherName(),
+                ward,
+                diagnosis
+        );
     }
 }

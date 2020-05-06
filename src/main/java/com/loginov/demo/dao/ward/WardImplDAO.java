@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class WardDAOImpl implements WardDAO {
+public class WardImplDAO implements WardDAO {
 
     private final WardRepository wardRepository;
 
-    public WardDAOImpl(final WardRepository wardRepository) {
+    public WardImplDAO(final WardRepository wardRepository) {
         this.wardRepository = wardRepository;
     }
 
