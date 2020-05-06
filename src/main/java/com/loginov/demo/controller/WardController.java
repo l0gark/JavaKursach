@@ -23,7 +23,12 @@ public class WardController {
 
     @GetMapping("{id}")
     public ResponseEntity<Ward> getWardById(@PathVariable Long id) {
-        return ResponseEntity.ok(wardDAO.getWardById(id));
+        try {
+            final Ward ward = wardDAO.getWardById(id);
+            return ResponseEntity.ok(ward);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @GetMapping("all")

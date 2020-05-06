@@ -3,6 +3,7 @@ package com.loginov.demo.controller;
 import com.loginov.demo.dao.person.PersonDAO;
 import com.loginov.demo.model.Person;
 import com.loginov.demo.model.SimpleResponse;
+import com.loginov.demo.model.Ward;
 import com.loginov.demo.model.dto.PersonDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,12 @@ public class PersonController {
 
     @GetMapping("{id}")
     public ResponseEntity<Person> getPersonById(@PathVariable Long id) {
-        return ResponseEntity.ok(personDAO.getPersonById(id));
+        try {
+            final Person person = personDAO.getPersonById(id);
+            return ResponseEntity.ok(person);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @GetMapping("all")
