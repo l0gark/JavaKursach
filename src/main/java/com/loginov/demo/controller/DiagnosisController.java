@@ -2,6 +2,7 @@ package com.loginov.demo.controller;
 
 import com.loginov.demo.dao.diagnosis.DiagnosisDAO;
 import com.loginov.demo.model.Diagnosis;
+import com.loginov.demo.model.SimpleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping
+@RequestMapping("/diagnosis")
 @RestController
 public class DiagnosisController {
 
@@ -26,16 +27,14 @@ public class DiagnosisController {
         return ResponseEntity.ok(diagnosis);
     }
 
-    @GetMapping("/diagnoses")
-    public @ResponseBody
-    List<Diagnosis> getDiagnoses() {
-        return diagnosisDAO.getAllDiagnosis();
+    @GetMapping("/all")
+    public ResponseEntity<List<Diagnosis>> getDiagnoses() {
+        return ResponseEntity.ok(diagnosisDAO.getAllDiagnosis());
     }
 
-    @PostMapping("/diagnosis")
-    public @ResponseBody
-    ResponseEntity<HttpStatus> insert(@RequestBody Diagnosis diagnosis) {
+    @PostMapping
+    public ResponseEntity<SimpleResponse> insert(@RequestBody Diagnosis diagnosis) {
         Long id = diagnosisDAO.insert(diagnosis);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.ok(SimpleResponse.of(HttpStatus.OK));
     }
 }

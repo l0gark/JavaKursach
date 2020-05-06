@@ -1,6 +1,7 @@
 package com.loginov.demo.controller;
 
 import com.loginov.demo.dao.ward.WardDAO;
+import com.loginov.demo.model.SimpleResponse;
 import com.loginov.demo.model.Ward;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequestMapping("ward")
 @RestController
 public class WardController {
 
@@ -19,22 +21,19 @@ public class WardController {
         this.wardDAO = wardDAO;
     }
 
-    @GetMapping("/ward")
-    public @ResponseBody
-    Ward getWardById(@RequestParam Long id) {
-        return wardDAO.getWardById(id);
+    @GetMapping("{id}")
+    public ResponseEntity<Ward> getWardById(@PathVariable Long id) {
+        return ResponseEntity.ok(wardDAO.getWardById(id));
     }
 
-    @GetMapping("/wards")
-    public @ResponseBody
-    List<Ward> getWards() {
-        return wardDAO.getAllWards();
+    @GetMapping("all")
+    public ResponseEntity<List<Ward>> getWards() {
+        return ResponseEntity.ok(wardDAO.getAllWards());
     }
 
-    @PostMapping("/ward")
-    public @ResponseBody
-    ResponseEntity<HttpStatus> insert(@RequestBody Ward ward) {
+    @PostMapping
+    public ResponseEntity<SimpleResponse> insert(@RequestBody Ward ward) {
         wardDAO.insert(ward);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.ok(SimpleResponse.of(HttpStatus.OK));
     }
 }

@@ -2,6 +2,7 @@ package com.loginov.demo.controller;
 
 import com.loginov.demo.dao.person.PersonDAO;
 import com.loginov.demo.model.Person;
+import com.loginov.demo.model.SimpleResponse;
 import com.loginov.demo.model.dto.PersonDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequestMapping("person")
 @RestController
 public class PersonController {
 
@@ -20,22 +22,19 @@ public class PersonController {
         this.personDAO = personDAO;
     }
 
-    @GetMapping("/person")
-    public @ResponseBody
-    Person getPersonById(@RequestParam Long id) {
-        return personDAO.getPersonById(id);
+    @GetMapping("{id}")
+    public ResponseEntity<Person> getPersonById(@PathVariable Long id) {
+        return ResponseEntity.ok(personDAO.getPersonById(id));
     }
 
-    @GetMapping("/persons")
-    public @ResponseBody
-    List<Person> getPersons() {
+    @GetMapping("all")
+    public List<Person> getPersons() {
         return personDAO.getAllPersons();
     }
 
-    @PostMapping("/person")
-    public @ResponseBody
-    ResponseEntity<HttpStatus> insert(@RequestBody final PersonDto person) {
+    @PostMapping
+    public ResponseEntity<SimpleResponse> insert(@RequestBody final PersonDto person) {
         personDAO.insert(person);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity.ok(SimpleResponse.of(HttpStatus.OK));
     }
 }
