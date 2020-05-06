@@ -5,11 +5,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public interface WardDAO {
-    int insert(Ward ward);
+    Long insert(Ward ward);
 
     List<Ward> getAllWards();
 
-    Ward getWardById(int id);
+    Ward getWardById(Long id);
 }

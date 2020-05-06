@@ -21,7 +21,7 @@ public class WardController {
 
     @GetMapping("/ward")
     public @ResponseBody
-    Ward getWardById(@RequestParam int id) {
+    Ward getWardById(@RequestParam Long id) {
         return wardDAO.getWardById(id);
     }
 

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequestMapping
 @RestController
 public class DiagnosisController {
 
@@ -19,10 +20,10 @@ public class DiagnosisController {
         this.diagnosisDAO = diagnosisDAO;
     }
 
-    @GetMapping("/diagnosis")
-    public @ResponseBody
-    Diagnosis getDiagnosisById(@RequestParam int id) {
-        return diagnosisDAO.getDiagnosisById(id);
+    @GetMapping("{id}")
+    public ResponseEntity<Diagnosis> getDiagnosisById(@PathVariable Integer id) {
+        final Diagnosis diagnosis = diagnosisDAO.getDiagnosisById(id);
+        return ResponseEntity.ok(diagnosis);
     }
 
     @GetMapping("/diagnoses")
