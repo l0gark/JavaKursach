@@ -1,10 +1,14 @@
 package com.loginov.demo.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 
+@Data
 @Entity
+@NoArgsConstructor
 @Table(name = "ward")
 public class Ward {
     @Id
@@ -14,31 +18,9 @@ public class Ward {
 
     @NonNull
     @Column(name = "name", nullable = false)
-    private final String name;
+    private String name;
 
     @NonNull
     @Column(name = "max_count", nullable = false)
-    private final Integer maxCount;
-
-    public Ward() {
-        this("FAILED", -1);
-    }
-
-    public Ward(@NonNull final String name,
-                final int maxCount) {
-        this.name = name;
-        this.maxCount = maxCount;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getMaxCount() {
-        return maxCount;
-    }
+    private Integer maxCount;
 }

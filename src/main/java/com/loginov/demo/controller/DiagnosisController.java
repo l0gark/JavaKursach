@@ -21,7 +21,7 @@ public class DiagnosisController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Diagnosis> getDiagnosisById(@PathVariable Integer id) {
+    public ResponseEntity<Diagnosis> getDiagnosisById(@PathVariable Long id) {
         final Diagnosis diagnosis = diagnosisDAO.getDiagnosisById(id);
         return ResponseEntity.ok(diagnosis);
     }
@@ -35,7 +35,7 @@ public class DiagnosisController {
     @PostMapping("/diagnosis")
     public @ResponseBody
     ResponseEntity<HttpStatus> insert(@RequestBody Diagnosis diagnosis) {
-        int id = diagnosisDAO.insert(diagnosis);
+        Long id = diagnosisDAO.insert(diagnosis);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 }

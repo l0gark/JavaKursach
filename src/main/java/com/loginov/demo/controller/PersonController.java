@@ -22,19 +22,19 @@ public class PersonController {
 
     @GetMapping("/person")
     public @ResponseBody
-    PersonDto getPersonById(@RequestParam int id) {
+    Person getPersonById(@RequestParam Long id) {
         return personDAO.getPersonById(id);
     }
 
     @GetMapping("/persons")
     public @ResponseBody
-    List<PersonDto> getPersons() {
+    List<Person> getPersons() {
         return personDAO.getAllPersons();
     }
 
     @PostMapping("/person")
     public @ResponseBody
-    ResponseEntity<HttpStatus> insert(@RequestBody final Person person) {
+    ResponseEntity<HttpStatus> insert(@RequestBody final PersonDto person) {
         personDAO.insert(person);
         return ResponseEntity.ok(HttpStatus.OK);
     }

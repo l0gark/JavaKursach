@@ -1,20 +1,22 @@
 package com.loginov.demo.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
 
+import javax.persistence.*;
+
+@Data
+@NoArgsConstructor
+@Entity
+@Table(name = "diagnosis")
 public class Diagnosis {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "name")
     @NonNull
-    private final String name;
-
-    public Diagnosis() {
-        this("");
-    }
-
-    public Diagnosis(@NonNull final String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
+    private String name;
 }

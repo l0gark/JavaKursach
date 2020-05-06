@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 public interface DiagnosisDAO {
-    int insert(Diagnosis diagnosis);
+    Long insert(Diagnosis diagnosis);
 
     List<Diagnosis> getAllDiagnosis();
 
-    Diagnosis getDiagnosisById(int id);
+    Diagnosis getDiagnosisById(Long id);
 }

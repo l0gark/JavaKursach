@@ -1,46 +1,39 @@
 package com.loginov.demo.model;
 
+import lombok.*;
 import org.springframework.lang.NonNull;
 
+import javax.persistence.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
+@Table(name = "people")
 public class Person {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
+
     @NonNull
-    private final String firstName;
+    @Column(name = "first_name")
+    private String firstName;
+
     @NonNull
-    private final String lastName;
+    @Column(name = "last_name")
+    private String lastName;
     @NonNull
-    private final String fatherName;
+    @Column(name = "father_name")
+    private String fatherName;
 
-    private final int wardId;
-    private final int diagnosisId;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(columnDefinition = "ward_id")
+    private Ward ward;
 
-
-    public Person(@NonNull final String firstName,
-                  @NonNull final String lastName,
-                  @NonNull final String fatherName, int wardId, int diagnosisId) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.fatherName = fatherName;
-        this.wardId = wardId;
-        this.diagnosisId = diagnosisId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getFatherName() {
-        return fatherName;
-    }
-
-    public int getWardId() {
-        return wardId;
-    }
-
-    public int getDiagnosisId() {
-        return diagnosisId;
-    }
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(columnDefinition = "diagnosis_id")
+    private Diagnosis diagnosis;
 }

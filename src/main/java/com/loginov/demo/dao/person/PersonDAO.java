@@ -6,9 +6,9 @@ import com.loginov.demo.model.dto.PersonDto;
 import java.util.List;
 
 public interface PersonDAO {
-    void insert(Person person);
+    void insert(PersonDto personDto);
 
-    List<PersonDto> getAllPersons();
+    List<Person> getAllPersons();
 
-    PersonDto getPersonById(int id);
+    Person getPersonById(Long id);
 }

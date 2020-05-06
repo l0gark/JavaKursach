@@ -1,58 +1,23 @@
 package com.loginov.demo.model.dto;
 
-import com.loginov.demo.model.Diagnosis;
-import com.loginov.demo.model.Ward;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
 
+@Data
+@NoArgsConstructor
 public class PersonDto {
     @NonNull
-    private final String firstName;
+    private String firstName;
     @NonNull
-    private final String lastName;
+    private String lastName;
     @NonNull
-    private final String fatherName;
-
-    @NonNull
-    private final Ward ward;
+    private String fatherName;
 
     @NonNull
-    private final Diagnosis diagnosis;
-
-    public PersonDto(){
-        this("", "", "", new Ward(), new Diagnosis());
-    }
-
-    public PersonDto(@NonNull final String firstName,
-                     @NonNull final String lastName,
-                     @NonNull final String fatherName,
-                     @NonNull Ward ward,
-                     @NonNull Diagnosis diagnosis) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.fatherName = fatherName;
-        this.ward = ward;
-        this.diagnosis = diagnosis;
-    }
+    private Long wardId;
 
     @NonNull
-    public Ward getWard() {
-        return ward;
-    }
+    private Long diagnosisId;
 
-    @NonNull
-    public Diagnosis getDiagnosis() {
-        return diagnosis;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getFatherName() {
-        return fatherName;
-    }
 }
