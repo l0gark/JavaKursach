@@ -1,6 +1,8 @@
 package com.loginov.demo.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;

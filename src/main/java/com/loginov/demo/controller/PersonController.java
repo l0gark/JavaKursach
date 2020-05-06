@@ -3,7 +3,6 @@ package com.loginov.demo.controller;
 import com.loginov.demo.dao.person.PersonDAO;
 import com.loginov.demo.model.Person;
 import com.loginov.demo.model.SimpleResponse;
-import com.loginov.demo.model.Ward;
 import com.loginov.demo.model.dto.PersonDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
