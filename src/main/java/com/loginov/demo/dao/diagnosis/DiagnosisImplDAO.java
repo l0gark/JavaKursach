@@ -2,14 +2,9 @@ package com.loginov.demo.dao.diagnosis;
 
 import com.loginov.demo.model.Diagnosis;
 import com.loginov.demo.repository.DiagnosisRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Component

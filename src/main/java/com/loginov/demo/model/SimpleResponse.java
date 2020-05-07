@@ -7,9 +7,9 @@ import org.springframework.http.HttpStatus;
 @Data
 public class SimpleResponse {
     @NonNull
-    private final Integer status;
+    private Integer status;
     @NonNull
-    private final String message;
+    private String message;
 
     public static SimpleResponse of(final HttpStatus httpStatus) {
         return new SimpleResponse(httpStatus.value(), httpStatus.name());

@@ -1,4 +1,4 @@
-package com.loginov.demo.dao.auth.user;
+package com.loginov.demo.dao.user;
 
 import com.loginov.demo.model.auth.Role;
 import com.loginov.demo.model.auth.User;
@@ -27,17 +27,18 @@ public class UserImplDAO implements UserDAO {
     }
 
     @Override
-    public Long insert(User user) {
-        User userFromDB = userRepository.findByUsername(user.getUsername());
+    public boolean insert(User user) {
+        final User userFromDB = userRepository.findByUsername(user.getUsername());
 
         if (userFromDB != null) {
-            return -1L;
+            return false;
         }
 
         user.setRoles(Collections.singleton(Role.user()));
         //TODO fix
 //        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        return userRepository.save(user).getId();
+        userRepository.save(user);
+        return true;
     }
 
     @Override
@@ -51,7 +52,7 @@ public class UserImplDAO implements UserDAO {
     }
 
     @Override
-    public Boolean deleteUser(Long id) {
+    public boolean deleteUser(Long id) {
         if (userRepository.findById(id).isPresent()) {
             userRepository.deleteById(id);
             return true;

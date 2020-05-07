@@ -1,17 +1,17 @@
-package com.loginov.demo.dao.auth.user;
+package com.loginov.demo.dao.user;
 
-import com.loginov.demo.model.Diagnosis;
 import com.loginov.demo.model.auth.User;
+import com.sun.istack.Nullable;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
 public interface UserDAO extends UserDetailsService {
-    Long insert(User user);
+    boolean insert(User user);
 
     List<User> getAllUsers();
 
     User getUserById(Long id);
 
-    Boolean deleteUser(Long id);
+    boolean deleteUser(Long id);
 }
