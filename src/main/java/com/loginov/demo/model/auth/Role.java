@@ -15,8 +15,7 @@ import java.util.Set;
 @Entity
 @Table(name = "roles")
 public class Role implements GrantedAuthority {
-    private static final String ROLE_USER_NAME = "ROLE_USER";
-    private static final Role ROLE_USER = new Role(1L, ROLE_USER_NAME);
+    private static final Role ROLE_USER = new Role(1L);
 
     @Id
     @Column(name = "id")
