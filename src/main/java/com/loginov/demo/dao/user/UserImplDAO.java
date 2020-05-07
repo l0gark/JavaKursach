@@ -4,9 +4,11 @@ import com.loginov.demo.model.auth.Role;
 import com.loginov.demo.model.auth.User;
 import com.loginov.demo.repository.auth.RoleRepository;
 import com.loginov.demo.repository.auth.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -21,9 +23,15 @@ public class UserImplDAO implements UserDAO {
     @NonNull
     private final RoleRepository roleRepository;
 
-    public UserImplDAO(@NonNull final UserRepository userRepository, @NonNull final RoleRepository roleRepository) {
+    @NonNull
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    public UserImplDAO(@NonNull final UserRepository userRepository,
+                       @NonNull final RoleRepository roleRepository,
+                       BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -35,8 +43,7 @@ public class UserImplDAO implements UserDAO {
         }
 
         user.setRoles(Collections.singleton(Role.user()));
-        //TODO fix
-//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
     }
