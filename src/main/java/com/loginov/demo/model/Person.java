@@ -1,5 +1,7 @@
 package com.loginov.demo.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,6 +9,7 @@ import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 
+@ApiModel(description = "Person object")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
