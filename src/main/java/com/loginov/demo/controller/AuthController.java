@@ -32,7 +32,7 @@ public class AuthController {
     }
 
     @GetMapping("all")
-    public ResponseEntity<List<User>> getWards() {
+    public ResponseEntity<List<User>> getUsers() {
         return ResponseEntity.ok(userDAO.getAllUsers());
     }
 

@@ -15,9 +15,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDAO userDAO;
+    private EncoderConfig encoderConfig;
 
-    public WebSecurityConfig(UserDAO userDAO) {
+    public WebSecurityConfig(UserDAO userDAO, EncoderConfig encoderConfig) {
         this.userDAO = userDAO;
+        this.encoderConfig = encoderConfig;
     }
 
     @Override
@@ -28,6 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 //Доступ только для не зарегистрированных пользователей
                 .antMatchers("/auth").not().fullyAuthenticated()
+                .antMatchers("/api").not().fullyAuthenticated()
+                .antMatchers("/swagger*").not().fullyAuthenticated()
                 //Доступ только для пользователей с ролью Администратор
                 .antMatchers("/person").hasRole("USER")
                 .antMatchers("/diagnosis").hasRole("USER")
@@ -35,13 +39,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //Все остальные страницы требуют аутентификации
                 .anyRequest().authenticated();
     }
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDAO).passwordEncoder(bCryptPasswordEncoder());
+        auth.userDetailsService(userDAO).passwordEncoder(encoderConfig.bCryptPasswordEncoder());
     }
 }
