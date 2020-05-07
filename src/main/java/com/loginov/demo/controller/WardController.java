@@ -3,10 +3,7 @@ package com.loginov.demo.controller;
 import com.loginov.demo.dao.ward.WardDAO;
 import com.loginov.demo.model.SimpleResponse;
 import com.loginov.demo.model.Ward;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,7 +50,7 @@ public class WardController {
     @ApiOperation(value = "Create new ward", response = SimpleResponse.class)
     @ApiResponse(code = 200, message = "OK")
     @PostMapping
-    public ResponseEntity<SimpleResponse> insert(@RequestBody Ward ward) {
+    public ResponseEntity<SimpleResponse> insert(@ApiParam(value = "Ward object", required = true) @RequestBody Ward ward) {
         wardDAO.insert(ward);
         return ResponseEntity.ok(SimpleResponse.of(HttpStatus.OK));
     }
