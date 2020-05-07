@@ -10,13 +10,9 @@ import com.loginov.demo.repository.PersonRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Component
 public class PersonImplDAO implements PersonDAO {
-
-    Logger logger = Logger.getLogger("");
 
     private final PersonRepository personRepository;
     private final WardDAO wardDAO;

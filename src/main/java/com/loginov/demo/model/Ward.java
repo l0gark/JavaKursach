@@ -7,8 +7,8 @@ import org.springframework.lang.NonNull;
 import javax.persistence.*;
 
 @Data
-@Entity
 @NoArgsConstructor
+@Entity
 @Table(name = "ward")
 public class Ward {
     @Id
