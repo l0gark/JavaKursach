@@ -1,6 +1,5 @@
 package com.loginov.demo.config;
 
-import com.loginov.demo.dao.user.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,40 +8,35 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDAO userDAO;
-    private EncoderConfig encoderConfig;
+//    @Autowired
+//    private MyBasicAuthenticationEntryPoint authenticationEntryPoint;
 
-    public WebSecurityConfig(UserDAO userDAO, EncoderConfig encoderConfig) {
-        this.userDAO = userDAO;
-        this.encoderConfig = encoderConfig;
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .withUser("user1").password(passwordEncoder().encode("1"))
+                .authorities("USER");
     }
 
     @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .csrf()
-                .disable()
-                .authorizeRequests()
-                //Доступ только для не зарегистрированных пользователей
-                .antMatchers("/auth").not().fullyAuthenticated()
-                .antMatchers("/api").not().fullyAuthenticated()
-                .antMatchers("/swagger*").not().fullyAuthenticated()
-                //Доступ только для пользователей с ролью Администратор
-                .antMatchers("/person").hasRole("USER")
-                .antMatchers("/diagnosis").hasRole("USER")
-                .antMatchers("/ward").hasRole("USER")
-                //Все остальные страницы требуют аутентификации
-                .anyRequest().authenticated();
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers("/auth", "/swagger").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic();
+//                .authenticationEntryPoint(authenticationEntryPoint);
+
     }
 
-
-    @Autowired
-    protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDAO).passwordEncoder(encoderConfig.bCryptPasswordEncoder());
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
