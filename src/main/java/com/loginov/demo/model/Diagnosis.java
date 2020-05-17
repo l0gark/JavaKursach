@@ -1,5 +1,7 @@
 package com.loginov.demo.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
@@ -14,8 +16,10 @@ public class Diagnosis {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
+    @ApiModelProperty(notes = "Diagnosis id")
     private Long id;
 
+    @ApiModelProperty(notes = "Diagnosis name")
     @Column(name = "name")
     @NonNull
     private String name;
