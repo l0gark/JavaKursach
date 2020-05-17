@@ -25,9 +25,7 @@ public class Swagger2Config {
     private ApiInfo apiEndPointsInfo() {
         return new ApiInfoBuilder().title("Spring Boot REST API")
             .description("Hospital Management REST API")
-            .contact(new Contact("l0gark", "www.javaguides.net", "l0gark@ya.ru"))
-            .license("Apache 2.0")
-            .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
+            .contact(new Contact("l0gark", "vk.com/l0gark", "l0gark@ya.ru"))
             .version("1.0.0")
             .build();
     }
