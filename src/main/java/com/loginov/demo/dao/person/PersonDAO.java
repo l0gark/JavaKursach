@@ -11,4 +11,6 @@ public interface PersonDAO {
     List<Person> getAllPersons();
 
     Person getPersonById(Long id);
+
+    List<Person> getPersonsByWardId(Long wardId);
 }

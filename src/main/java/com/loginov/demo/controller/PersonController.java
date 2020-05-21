@@ -40,6 +40,15 @@ public class PersonController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+    @GetMapping("/ward/{wardId}")
+    public ResponseEntity<List<Person>> getPersonsByWardId(@PathVariable Long wardId) {
+        try {
+            final List<Person> persons = personDAO.getPersonsByWardId(wardId);
+            return ResponseEntity.ok(persons);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 
     @ApiOperation(value = "View list of all persons in hospital", response = List.class)
     @ApiResponse(code = 200, message = "OK")
@@ -47,7 +56,6 @@ public class PersonController {
     public List<Person> getPersons() {
         return personDAO.getAllPersons();
     }
-
 
     @ApiOperation(value = "Create new Person", response = SimpleResponse.class)
     @ApiResponse(code = 200, message = "OK")

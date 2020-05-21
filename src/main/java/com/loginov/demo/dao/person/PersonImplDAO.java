@@ -40,6 +40,11 @@ public class PersonImplDAO implements PersonDAO {
         return personRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Wrong id"));
     }
 
+    @Override
+    public List<Person> getPersonsByWardId(Long wardId) {
+        return personRepository.findAllByWardId(wardId);
+    }
+
     private Person fromDto(final PersonDto dto) {
         final Ward ward = wardDAO.getWardById(dto.getWardId());
         final Diagnosis diagnosis = diagnosisDAO.getDiagnosisById(dto.getDiagnosisId());
