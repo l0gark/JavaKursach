@@ -1,4 +1,4 @@
-package com.loginov.demo.model;
+package com.loginov.demo.model.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -11,17 +11,16 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "diagnosis")
-public class Diagnosis {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+public class DiagnosisDto {
     @ApiModelProperty(notes = "Diagnosis id")
+    @NonNull
     private Long id;
 
     @ApiModelProperty(notes = "Diagnosis name")
-    @Column(name = "name")
     @NonNull
     private String name;
+
+    @ApiModelProperty(notes = "Persons count")
+    @NonNull
+    private Integer count;
 }

@@ -5,6 +5,7 @@ import com.loginov.demo.dao.ward.WardDAO;
 import com.loginov.demo.model.Diagnosis;
 import com.loginov.demo.model.Person;
 import com.loginov.demo.model.Ward;
+import com.loginov.demo.model.dto.PersonCreateDto;
 import com.loginov.demo.model.dto.PersonDto;
 import com.loginov.demo.repository.PersonRepository;
 import org.springframework.stereotype.Component;
@@ -25,9 +26,14 @@ public class PersonImplDAO implements PersonDAO {
     }
 
     @Override
-    public void insert(final PersonDto personDto) {
-        final Person person = fromDto(personDto);
-        personRepository.save(person);
+    public Person insert(final PersonCreateDto personDto) {
+        final Person person = fromCreateDto(personDto);
+        final List<Person> personsInWard = getPersonsByWardId(person.getWard().getId());
+        if (personsInWard.size() >= person.getWard().getMaxCount()) {
+            throw new IllegalArgumentException("Ward is full");
+        }
+
+        return personRepository.save(person);
     }
 
     @Override
@@ -40,9 +46,14 @@ public class PersonImplDAO implements PersonDAO {
         return personRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Wrong id"));
     }
 
-    private Person fromDto(final PersonDto dto) {
+    @Override
+    public List<Person> getPersonsByWardId(Long wardId) {
+        return personRepository.findAllByWardId(wardId);
+    }
+
+    private Person fromCreateDto(final PersonCreateDto dto) {
         final Ward ward = wardDAO.getWardById(dto.getWardId());
-        final Diagnosis diagnosis = diagnosisDAO.getDiagnosisById(dto.getDiagnosisId());
+        final Diagnosis diagnosis = diagnosisDAO.getDiagnosisByName(dto.getDiagnosisName());
 
         return new Person(
                 -1L,
