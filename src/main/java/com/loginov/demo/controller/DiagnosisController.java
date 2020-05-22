@@ -3,6 +3,7 @@ package com.loginov.demo.controller;
 import com.loginov.demo.dao.diagnosis.DiagnosisDAO;
 import com.loginov.demo.model.Diagnosis;
 import com.loginov.demo.model.SimpleResponse;
+import com.loginov.demo.model.dto.DiagnosisDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -43,8 +44,8 @@ public class DiagnosisController {
     @ApiOperation(value = "View list of all diagnoses", response = List.class)
     @ApiResponse(code = 200, message = "OK")
     @GetMapping("all")
-    public ResponseEntity<List<Diagnosis>> getDiagnoses() {
-        return ResponseEntity.ok(diagnosisDAO.getAllDiagnosis());
+    public ResponseEntity<List<DiagnosisDto>> getDiagnoses() {
+        return ResponseEntity.ok(diagnosisDAO.getAllDiagnosisDto());
     }
 
     @ApiOperation(value = "Create new Diagnosis", response = SimpleResponse.class)

@@ -8,6 +8,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class DiagnosisImplDAO implements DiagnosisDAO {
@@ -46,12 +47,12 @@ public class DiagnosisImplDAO implements DiagnosisDAO {
     }
 
     @Override
-    public DiagnosisDto getDiagnosisDtoById(Long id) {
-        final Diagnosis diagnosis = getDiagnosisById(id);
-        final int count = personRepository.findAllByDiagnosisId(id).size();
-        return new DiagnosisDto(
-                diagnosis.getName(),
-                count
-        );
+    public List<DiagnosisDto> getAllDiagnosisDto() {
+        return getAllDiagnosis()
+                .stream()
+                .map(diagnosis -> {
+                    final int count = personRepository.findAllByDiagnosisId(diagnosis.getId()).size();
+                    return new DiagnosisDto(diagnosis.getName(), count);
+                }).collect(Collectors.toList());
     }
 }
