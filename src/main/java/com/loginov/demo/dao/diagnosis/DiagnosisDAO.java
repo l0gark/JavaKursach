@@ -12,4 +12,6 @@ public interface DiagnosisDAO {
     List<Diagnosis> getAllDiagnosis();
 
     Diagnosis getDiagnosisById(Long id);
+
+    Diagnosis getDiagnosisByName(String name);
 }

@@ -3,6 +3,7 @@ package com.loginov.demo.controller;
 import com.loginov.demo.dao.person.PersonDAO;
 import com.loginov.demo.model.Person;
 import com.loginov.demo.model.SimpleResponse;
+import com.loginov.demo.model.dto.PersonCreateDto;
 import com.loginov.demo.model.dto.PersonDto;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ public class PersonController {
     @ApiOperation(value = "Create new Person", response = SimpleResponse.class)
     @ApiResponse(code = 200, message = "OK")
     @PostMapping
-    public ResponseEntity<SimpleResponse> insert(@ApiParam(value = "Person object", required = true) @RequestBody final PersonDto person) {
+    public ResponseEntity<SimpleResponse> insert(@ApiParam(value = "Person object", required = true) @RequestBody final PersonCreateDto person) {
         personDAO.insert(person);
         return ResponseEntity.ok(SimpleResponse.of(HttpStatus.OK));
     }

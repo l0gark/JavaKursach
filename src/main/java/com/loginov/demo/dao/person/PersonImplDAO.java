@@ -5,6 +5,7 @@ import com.loginov.demo.dao.ward.WardDAO;
 import com.loginov.demo.model.Diagnosis;
 import com.loginov.demo.model.Person;
 import com.loginov.demo.model.Ward;
+import com.loginov.demo.model.dto.PersonCreateDto;
 import com.loginov.demo.model.dto.PersonDto;
 import com.loginov.demo.repository.PersonRepository;
 import org.springframework.stereotype.Component;
@@ -25,8 +26,8 @@ public class PersonImplDAO implements PersonDAO {
     }
 
     @Override
-    public void insert(final PersonDto personDto) {
-        final Person person = fromDto(personDto);
+    public void insert(final PersonCreateDto personDto) {
+        final Person person = fromCreateDto(personDto);
         personRepository.save(person);
     }
 
@@ -48,6 +49,20 @@ public class PersonImplDAO implements PersonDAO {
     private Person fromDto(final PersonDto dto) {
         final Ward ward = wardDAO.getWardById(dto.getWardId());
         final Diagnosis diagnosis = diagnosisDAO.getDiagnosisById(dto.getDiagnosisId());
+
+        return new Person(
+                -1L,
+                dto.getFirstName(),
+                dto.getLastName(),
+                dto.getFatherName(),
+                ward,
+                diagnosis
+        );
+    }
+
+    private Person fromCreateDto(final PersonCreateDto dto) {
+        final Ward ward = wardDAO.getWardById(dto.getWardId());
+        final Diagnosis diagnosis = diagnosisDAO.getDiagnosisByName(dto.getDiagnosisName());
 
         return new Person(
                 -1L,
