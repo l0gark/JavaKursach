@@ -19,8 +19,8 @@ public class AppStarter implements CommandLineRunner {
     public static final String[] LAST_NAMES = {"Логинов", "Потапов", "Хазыров", "Мельников", "Дмитриев"};
     public static final String[] FIRST_NAMES = {"Аркадий", "Потап", "Кирилл", "Виктор", "Александр"};
     public static final String[] FATHER_NAMES = {"Аркадьевич", "Потапович", "Кириллович", "Викторович", "Александрович"};
-    private static final Random random = new Random();
     private static final String[] DIAGNOSES = {"Тиф", "Простатит", "Аденома простаты", "Рак", "Кашель", "Короновайрус"};
+    private static final Random random = new Random();
 
     @Autowired
     PersonDAO personDAO;
