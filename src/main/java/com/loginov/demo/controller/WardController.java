@@ -50,8 +50,7 @@ public class WardController {
     @ApiOperation(value = "Create new ward", response = SimpleResponse.class)
     @ApiResponse(code = 200, message = "OK")
     @PostMapping
-    public ResponseEntity<SimpleResponse> insert(@ApiParam(value = "Ward object", required = true) @RequestBody Ward ward) {
-        wardDAO.insert(ward);
-        return ResponseEntity.ok(SimpleResponse.of(HttpStatus.OK));
+    public ResponseEntity<Ward> insert(@ApiParam(value = "Ward object", required = true) @RequestBody Ward ward) {
+        return ResponseEntity.ok(wardDAO.insert(ward));
     }
 }

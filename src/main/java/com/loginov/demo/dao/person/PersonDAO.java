@@ -6,7 +6,7 @@ import com.loginov.demo.model.dto.PersonCreateDto;
 import java.util.List;
 
 public interface PersonDAO {
-    void insert(PersonCreateDto personDto);
+    Person insert(PersonCreateDto personDto);
 
     List<Person> getAllPersons();
 

@@ -26,14 +26,14 @@ public class PersonImplDAO implements PersonDAO {
     }
 
     @Override
-    public void insert(final PersonCreateDto personDto) {
+    public Person insert(final PersonCreateDto personDto) {
         final Person person = fromCreateDto(personDto);
         final List<Person> personsInWard = getPersonsByWardId(person.getWard().getId());
         if (personsInWard.size() >= person.getWard().getMaxCount()) {
             throw new IllegalArgumentException("Ward is full");
         }
 
-        personRepository.save(person);
+        return personRepository.save(person);
     }
 
     @Override

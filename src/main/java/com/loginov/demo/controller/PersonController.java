@@ -64,12 +64,11 @@ public class PersonController {
             @ApiResponse(code = 400, message = "Bad request")
     })
     @PostMapping
-    public ResponseEntity<SimpleResponse> insert(@ApiParam(value = "Person object", required = true) @RequestBody final PersonCreateDto person) {
+    public ResponseEntity<Person> insert(@ApiParam(value = "Person object", required = true) @RequestBody final PersonCreateDto person) {
         try {
-            personDAO.insert(person);
-            return ResponseEntity.ok(SimpleResponse.of(HttpStatus.OK));
+            return ResponseEntity.ok(personDAO.insert(person));
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(SimpleResponse.of(HttpStatus.BAD_REQUEST));
+            return ResponseEntity.badRequest().body(null);
         }
     }
 }

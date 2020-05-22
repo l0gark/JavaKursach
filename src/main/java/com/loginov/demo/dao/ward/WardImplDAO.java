@@ -16,8 +16,8 @@ public class WardImplDAO implements WardDAO {
     }
 
     @Override
-    public Long insert(final Ward ward) {
-        return wardRepository.save(ward).getId();
+    public Ward insert(final Ward ward) {
+        return wardRepository.save(ward);
     }
 
     @Override

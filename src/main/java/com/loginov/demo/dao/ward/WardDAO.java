@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 public interface WardDAO {
-    Long insert(Ward ward);
+    Ward insert(Ward ward);
 
     List<Ward> getAllWards();
 
