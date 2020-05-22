@@ -2,7 +2,6 @@ package com.loginov.demo.dao.person;
 
 import com.loginov.demo.model.Person;
 import com.loginov.demo.model.dto.PersonCreateDto;
-import com.loginov.demo.model.dto.PersonDto;
 
 import java.util.List;
 

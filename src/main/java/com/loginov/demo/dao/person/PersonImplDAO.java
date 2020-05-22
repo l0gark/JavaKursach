@@ -51,20 +51,6 @@ public class PersonImplDAO implements PersonDAO {
         return personRepository.findAllByWardId(wardId);
     }
 
-    private Person fromDto(final PersonDto dto) {
-        final Ward ward = wardDAO.getWardById(dto.getWardId());
-        final Diagnosis diagnosis = diagnosisDAO.getDiagnosisById(dto.getDiagnosisId());
-
-        return new Person(
-                -1L,
-                dto.getFirstName(),
-                dto.getLastName(),
-                dto.getFatherName(),
-                ward,
-                diagnosis
-        );
-    }
-
     private Person fromCreateDto(final PersonCreateDto dto) {
         final Ward ward = wardDAO.getWardById(dto.getWardId());
         final Diagnosis diagnosis = diagnosisDAO.getDiagnosisByName(dto.getDiagnosisName());
