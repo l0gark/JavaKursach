@@ -4,7 +4,6 @@ import com.loginov.demo.dao.person.PersonDAO;
 import com.loginov.demo.model.Person;
 import com.loginov.demo.model.SimpleResponse;
 import com.loginov.demo.model.dto.PersonCreateDto;
-import com.loginov.demo.model.dto.PersonDto;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,6 +40,7 @@ public class PersonController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+
     @GetMapping("/ward/{wardId}")
     public ResponseEntity<List<Person>> getPersonsByWardId(@PathVariable Long wardId) {
         try {
@@ -59,10 +59,17 @@ public class PersonController {
     }
 
     @ApiOperation(value = "Create new Person", response = SimpleResponse.class)
-    @ApiResponse(code = 200, message = "OK")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Bad request")
+    })
     @PostMapping
     public ResponseEntity<SimpleResponse> insert(@ApiParam(value = "Person object", required = true) @RequestBody final PersonCreateDto person) {
-        personDAO.insert(person);
-        return ResponseEntity.ok(SimpleResponse.of(HttpStatus.OK));
+        try {
+            personDAO.insert(person);
+            return ResponseEntity.ok(SimpleResponse.of(HttpStatus.OK));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(SimpleResponse.of(HttpStatus.BAD_REQUEST));
+        }
     }
 }
