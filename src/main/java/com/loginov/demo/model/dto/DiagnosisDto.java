@@ -12,6 +12,10 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DiagnosisDto {
+    @ApiModelProperty(notes = "Diagnosis id")
+    @NonNull
+    private Long id;
+
     @ApiModelProperty(notes = "Diagnosis name")
     @NonNull
     private String name;

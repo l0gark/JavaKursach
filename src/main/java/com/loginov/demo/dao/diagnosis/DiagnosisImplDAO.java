@@ -52,7 +52,7 @@ public class DiagnosisImplDAO implements DiagnosisDAO {
                 .stream()
                 .map(diagnosis -> {
                     final int count = personRepository.findAllByDiagnosisId(diagnosis.getId()).size();
-                    return new DiagnosisDto(diagnosis.getName(), count);
+                    return new DiagnosisDto(diagnosis.getId(), diagnosis.getName(), count);
                 }).collect(Collectors.toList());
     }
 }
