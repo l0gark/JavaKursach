@@ -1,9 +1,10 @@
 package com.loginov.demo.dao.diagnosis;
 
 import com.loginov.demo.model.Diagnosis;
+import com.loginov.demo.model.dto.DiagnosisDto;
 import com.loginov.demo.repository.DiagnosisRepository;
+import com.loginov.demo.repository.PersonRepository;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,9 +13,11 @@ import java.util.List;
 public class DiagnosisImplDAO implements DiagnosisDAO {
 
     private final DiagnosisRepository diagnosisRepository;
+    private final PersonRepository personRepository;
 
-    public DiagnosisImplDAO(final DiagnosisRepository diagnosisRepository) {
+    public DiagnosisImplDAO(final DiagnosisRepository diagnosisRepository, PersonRepository personRepository) {
         this.diagnosisRepository = diagnosisRepository;
+        this.personRepository = personRepository;
     }
 
     @Override
@@ -40,5 +43,15 @@ public class DiagnosisImplDAO implements DiagnosisDAO {
         }
         final Long id = insert(new Diagnosis(-1L, name));
         return getDiagnosisById(id);
+    }
+
+    @Override
+    public DiagnosisDto getDiagnosisDtoById(Long id) {
+        final Diagnosis diagnosis = getDiagnosisById(id);
+        final int count = personRepository.findAllByDiagnosisId(id).size();
+        return new DiagnosisDto(
+                diagnosis.getName(),
+                count
+        );
     }
 }
