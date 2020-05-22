@@ -39,6 +39,7 @@ public class DiagnosisImplDAO implements DiagnosisDAO {
     @Override
     public Diagnosis getDiagnosisByName(String name) {
         final Diagnosis diagnosis = diagnosisRepository.findDiagnosesByName(name);
+
         if (diagnosis != null) {
             return diagnosis;
         }

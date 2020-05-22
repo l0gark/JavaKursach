@@ -2,6 +2,7 @@ package com.loginov.demo.model.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
@@ -9,6 +10,7 @@ import org.springframework.lang.NonNull;
 @ApiModel(description = "Person data transfer object")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class PersonCreateDto {
     @ApiModelProperty(notes = "First name", required = true)
     @NonNull
