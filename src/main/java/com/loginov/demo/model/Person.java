@@ -31,11 +31,11 @@ public class Person {
     @Column(name = "father_name")
     private String fatherName;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(columnDefinition = "ward_id")
     private Ward ward;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(columnDefinition = "diagnosis_id")
     private Diagnosis diagnosis;
 }

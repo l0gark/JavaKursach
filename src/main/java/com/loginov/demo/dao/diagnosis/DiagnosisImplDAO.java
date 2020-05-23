@@ -63,6 +63,7 @@ public class DiagnosisImplDAO implements DiagnosisDAO {
         if(count > 0){
             throw new IllegalArgumentException("For begin ypu should remove all persons");
         }
+
         diagnosisRepository.deleteById(id);
     }
 }
