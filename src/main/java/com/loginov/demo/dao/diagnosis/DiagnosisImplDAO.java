@@ -56,4 +56,13 @@ public class DiagnosisImplDAO implements DiagnosisDAO {
                     return new DiagnosisDto(diagnosis.getId(), diagnosis.getName(), count);
                 }).collect(Collectors.toList());
     }
+
+    @Override
+    public void delete(Long id) {
+        final int count = personRepository.findAllByDiagnosisId(id).size();
+        if(count > 0){
+            throw new IllegalArgumentException("For begin ypu should remove all persons");
+        }
+        diagnosisRepository.deleteById(id);
+    }
 }

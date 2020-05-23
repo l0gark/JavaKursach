@@ -17,4 +17,6 @@ public interface DiagnosisDAO {
     Diagnosis getDiagnosisByName(String name);
 
     List<DiagnosisDto> getAllDiagnosisDto();
+
+    void delete(Long id);
 }

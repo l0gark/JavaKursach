@@ -71,4 +71,14 @@ public class PersonController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<SimpleResponse> delete(@ApiParam(value = "Person id", required = true) @PathVariable final Long id) {
+        try {
+            personDAO.delete(id);
+            return ResponseEntity.ok(SimpleResponse.of(HttpStatus.OK));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 }

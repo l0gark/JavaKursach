@@ -13,4 +13,6 @@ public interface PersonDAO {
     Person getPersonById(Long id);
 
     List<Person> getPersonsByWardId(Long wardId);
+
+    void delete(Long id);
 }

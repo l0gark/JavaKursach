@@ -55,4 +55,14 @@ public class DiagnosisController {
         Long id = diagnosisDAO.insert(diagnosis);
         return ResponseEntity.ok(SimpleResponse.of(HttpStatus.OK));
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<SimpleResponse> delete(@ApiParam(value = "Diagnosis id", required = true) @PathVariable final Long id) {
+        try {
+            diagnosisDAO.delete(id);
+            return ResponseEntity.ok(SimpleResponse.of(HttpStatus.OK));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 }

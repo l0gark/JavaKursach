@@ -11,4 +11,6 @@ public interface WardDAO {
     List<Ward> getAllWards();
 
     Ward getWardById(Long id);
+
+    void delete(Long id);
 }

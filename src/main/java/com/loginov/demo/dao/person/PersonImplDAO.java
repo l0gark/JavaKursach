@@ -51,6 +51,14 @@ public class PersonImplDAO implements PersonDAO {
         return personRepository.findAllByWardId(wardId);
     }
 
+    @Override
+    public void delete(Long id) {
+        if(!personRepository.existsById(id)){
+            throw new IllegalArgumentException("Wrong id");
+        }
+        personRepository.deleteById(id);
+    }
+
     private Person fromCreateDto(final PersonCreateDto dto) {
         final Ward ward = wardDAO.getWardById(dto.getWardId());
         final Diagnosis diagnosis = diagnosisDAO.getDiagnosisByName(dto.getDiagnosisName());
