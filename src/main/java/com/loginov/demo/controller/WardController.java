@@ -53,4 +53,14 @@ public class WardController {
     public ResponseEntity<Ward> insert(@ApiParam(value = "Ward object", required = true) @RequestBody Ward ward) {
         return ResponseEntity.ok(wardDAO.insert(ward));
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<SimpleResponse> delete(@ApiParam(value = "Ward id", required = true) @PathVariable final Long id) {
+        try {
+            wardDAO.delete(id);
+            return ResponseEntity.ok(SimpleResponse.of(HttpStatus.OK));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 }
