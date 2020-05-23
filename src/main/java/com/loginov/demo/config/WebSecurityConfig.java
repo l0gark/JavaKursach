@@ -17,22 +17,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
         auth.inMemoryAuthentication()
-            .passwordEncoder(passwordEncoder())
-            .withUser("admin")
-            .password(passwordEncoder().encode("admin"))
-            .roles("USER");
+                .passwordEncoder(passwordEncoder())
+                .withUser("admin")
+                .password(passwordEncoder().encode("admin"))
+                .roles("USER");
     }
 
     @Override
     protected void configure(HttpSecurity http)
             throws Exception {
         http.csrf().disable()
-            .cors().disable()
-            .authorizeRequests()
-            .antMatchers("/auth", "/swagger").permitAll()
-            .anyRequest().authenticated()
-            .and()
-            .httpBasic();
+                .cors().disable()
+                .authorizeRequests()
+                .antMatchers("/swagger*").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic();
     }
 
     @Bean
