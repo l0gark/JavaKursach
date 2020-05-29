@@ -1,7 +1,9 @@
 package com.loginov.demo.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -9,19 +11,33 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth)
-            throws Exception {
-        auth.inMemoryAuthentication()
-                .passwordEncoder(passwordEncoder())
-                .withUser("admin")
-                .password(passwordEncoder().encode("admin"))
-                .roles("USER");
+    private final DataSource dataSource;
+
+    public WebSecurityConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth)
+            throws Exception {
+        auth.jdbcAuthentication()
+                .dataSource(dataSource)
+                .usersByUsernameQuery("SELECT name,password,enabled "
+                        + "FROM users "
+                        + "WHERE name = ?")
+                .authoritiesByUsernameQuery("SELECT name,authority "
+                        + "FROM authorities "
+                        + "WHERE name = ?")
+                .passwordEncoder(passwordEncoder());
+
+    }
+
 
     @Override
     protected void configure(HttpSecurity http)
@@ -30,7 +46,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().disable()
                 .authorizeRequests()
                 .antMatchers("/swagger*").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers(HttpMethod.POST, "/diagnosis", "/ward").hasRole("ADMIN")
+                .antMatchers("/swagger*").permitAll()
+                .anyRequest().hasAnyRole("ADMIN", "USER")
                 .and()
                 .httpBasic();
     }

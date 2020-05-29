@@ -51,9 +51,9 @@ public class DiagnosisController {
     @ApiOperation(value = "Create new Diagnosis", response = SimpleResponse.class)
     @ApiResponse(code = 200, message = "OK")
     @PostMapping
-    public ResponseEntity<SimpleResponse> insert(@ApiParam(value = "Diagnosis object", required = true) @RequestBody Diagnosis diagnosis) {
-        Long id = diagnosisDAO.insert(diagnosis);
-        return ResponseEntity.ok(SimpleResponse.of(HttpStatus.OK));
+    public ResponseEntity<Diagnosis> insert(@ApiParam(value = "Diagnosis object", required = true) @RequestBody Diagnosis diagnosis) {
+        Diagnosis responseDiagnosis = diagnosisDAO.insert(diagnosis);
+        return ResponseEntity.ok(responseDiagnosis);
     }
 
     @DeleteMapping("{id}")
