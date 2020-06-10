@@ -22,8 +22,8 @@ public class DiagnosisImplDAO implements DiagnosisDAO {
     }
 
     @Override
-    public Long insert(@NonNull final Diagnosis diagnosis) {
-        return diagnosisRepository.save(diagnosis).getId();
+    public Diagnosis insert(@NonNull final Diagnosis diagnosis) {
+        return diagnosisRepository.save(diagnosis);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class DiagnosisImplDAO implements DiagnosisDAO {
         if (diagnosis != null) {
             return diagnosis;
         }
-        final Long id = insert(new Diagnosis(-1L, name));
+        final Long id = insert(new Diagnosis(-1L, name)).getId();
         return getDiagnosisById(id);
     }
 
